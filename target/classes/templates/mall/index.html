@@ -61,6 +61,22 @@
         </div>
     </div>
 
+<!--排行功能-->
+    <li class="nav-item">
+        <a th:href="@{/admin/indexConfigs?configType=3}"
+           th:class="${path}=='INDEX_GOODS_HOTS'?'nav-link active':'nav-link'">
+            <i class="nav-icon fa fa-hand-o-up"></i>
+            <table>
+                <tbody>
+                <tr th:each="cuser:${xxxxx.data}">
+                    <td th:text="${data.sds}"></td>
+                    <td th:text="${data.sds}></td>
+                </tr>
+                </tbody>
+            </table>
+        </a>
+    </li>
+
     <div id="sub_banner">
         <!-- 已配置热销商品则显示配置内容 -->
         <th:block th:unless="${#lists.isEmpty(hotGoodses)}">
