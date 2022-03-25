@@ -5,12 +5,15 @@ import com.bmg.mall.common.IndexConfigTypeEnum;
 import com.bmg.mall.controller.vo.bmgIndexCarouselVO;
 import com.bmg.mall.controller.vo.bmgIndexCategoryVO;
 import com.bmg.mall.controller.vo.bmgIndexConfigGoodsVO;
+import com.bmg.mall.entity.RankDTO;
+import com.bmg.mall.service.GoodsRankService;
 import com.bmg.mall.service.bmgCarouselService;
 import com.bmg.mall.service.bmgIndexConfigService;
 import com.bmg.mall.service.bmgCategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +31,9 @@ public class IndexController {
     @Resource
     private bmgCategoryService bmgCategoryService;
 
+    @Resource
+    private GoodsRankService goodsRankService;
+
     @GetMapping({"/index", "/", "/index.html"})
     public String indexPage(HttpServletRequest request) {
         List<bmgIndexCategoryVO> categories = bmgCategoryService.getCategoriesForIndex();
@@ -38,11 +44,21 @@ public class IndexController {
         List<bmgIndexConfigGoodsVO> hotGoodses = bmgIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_HOT.getType(), Constants.INDEX_GOODS_HOT_NUMBER);
         List<bmgIndexConfigGoodsVO> newGoodses = bmgIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_NEW.getType(), Constants.INDEX_GOODS_NEW_NUMBER);
         List<bmgIndexConfigGoodsVO> recommendGoodses = bmgIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_RECOMMOND.getType(), Constants.INDEX_GOODS_RECOMMOND_NUMBER);
+
         request.setAttribute("categories", categories);//分类数据
         request.setAttribute("carousels", carousels);//轮播图
         request.setAttribute("hotGoodses", hotGoodses);//热销商品
         request.setAttribute("newGoodses", newGoodses);//新品
-        request.setAttribute("recommendGoodses", recommendGoodses);//推荐商品
+        request.setAttribute("recommendGoodses", recommendGoodses);//推荐商品.
         return "mall/index";
     }
+
+    @RequestMapping(value = "/sortGoods")
+    public String sortGoods(HttpServletRequest request){
+        List<RankDTO> rankList =goodsRankService.SelectRankByGoodsId();
+        request.setAttribute("rankList", rankList);
+        return "mall/sortGoods";
+    }
+
+
 }

@@ -6,6 +6,11 @@
     background-color: #333;
 }
 
+#header .rank {
+    font-size: 14px;
+    color: #b0b0b0;
+}
+
 #header .center {
     width: 1226px;
     height: 40px;
