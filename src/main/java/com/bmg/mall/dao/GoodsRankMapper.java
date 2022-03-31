@@ -11,6 +11,6 @@ public interface GoodsRankMapper {
    @Results({
                     @Result(property = "goodsName", column = "goods_name")
             })
-    @Select("select goods_name,goods_id,count(goods_id) as total from bmg_order_item group by goods_id order by total desc limit 1,5;")
+    @Select("select goods_name,goods_id,count(goods_id) as total from bmg_order_item group by goods_id order by total desc limit 1,10;")
     List<RankDTO> SelectRankByGoodsId();
 }

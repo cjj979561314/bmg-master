@@ -6,6 +6,15 @@
     background-color: #333;
 }
 
+#header .rank {
+    display: flex;
+    align-items: center;
+    height: 12px;
+    font-size: 14px;
+    color: #b0b0b0;
+    padding: 0 8px;
+}
+
 #header .center {
     width: 1226px;
     height: 40px;
